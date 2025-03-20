@@ -12,6 +12,12 @@ vim.g.have_nerd_font = true
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
+-- No word-wrap
+vim.o.wrap = false
+
+-- Add line-length color column
+vim.o.colorcolumn = '80'
+
 -- Make line numbers default
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -75,6 +81,17 @@ vim.opt.confirm = true
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
+
+-- Center after movements
+vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Center after half-page-down' })
+vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Center after half-page-up' })
+vim.keymap.set('n', '<C-b>', '<C-b>zz', { desc = 'Center after page-down' })
+vim.keymap.set('n', '<C-f>', '<C-f>zz', { desc = 'Center after page-up' })
+vim.keymap.set('n', 'N', 'Nzz', { desc = 'Center after find-prev' })
+vim.keymap.set('n', 'n', 'nzz', { desc = 'Center after find-next' })
+
+-- Paste without copying
+vim.keymap.set('x', '<leader>p', '[["_dP]]', { desc = 'Deletes to void register before pasting' })
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
@@ -316,7 +333,7 @@ require('lazy').setup({
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '<leader>sf', '<cmd>Telescope find_files hidden=true<cr>', { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -854,6 +871,7 @@ require('lazy').setup({
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
+      require('mini.splitjoin').setup()
     end,
   },
   { -- Highlight, edit, and navigate code
