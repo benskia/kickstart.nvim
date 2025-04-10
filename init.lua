@@ -39,6 +39,9 @@ end)
 -- Enable break indent
 vim.opt.breakindent = true
 
+-- Set tabs to 4 spaces
+vim.o.tabstop = 4
+
 -- Save undo history
 vim.opt.undofile = true
 
@@ -89,6 +92,11 @@ vim.keymap.set('n', '<C-b>', '<C-b>zz', { desc = 'Center after page-down' })
 vim.keymap.set('n', '<C-f>', '<C-f>zz', { desc = 'Center after page-up' })
 vim.keymap.set('n', 'N', 'Nzz', { desc = 'Center after find-prev' })
 vim.keymap.set('n', 'n', 'nzz', { desc = 'Center after find-next' })
+vim.keymap.set('n', 'gg', 'ggzz', { desc = 'Center after page beginning' })
+vim.keymap.set('n', 'G', 'Gzz', { desc = 'Center after page end' })
+
+-- Comment newline at char-80
+vim.keymap.set('n', '<leader>80', '80|F<Space>r<CR>', { desc = 'Goto 80th char, find previous space, and insert newline.' })
 
 -- Paste without copying
 vim.keymap.set('x', '<leader>p', '[["_dP]]', { desc = 'Deletes to void register before pasting' })
@@ -676,11 +684,7 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        go = { 'gopls' },
       },
     },
   },
@@ -808,11 +812,11 @@ require('lazy').setup({
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'rose-pine/neovim',
+    'catppuccin/nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     config = function()
       ---@diagnostic disable-next-line: missing-fields
-      require('rose-pine').setup {
+      require('catppuccin').setup {
         -- color_overrides = {
         --   mocha = {
         --     base = '#0F0F0F',
@@ -825,11 +829,11 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'rose-pine'
+      vim.cmd.colorscheme 'catppuccin-mocha'
 
       -- Remove background.
       vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+      -- vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
     end,
   },
 
