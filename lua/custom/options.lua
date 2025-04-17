@@ -18,6 +18,9 @@ vim.opt.showmode = false
 vim.o.colorcolumn = '80'
 
 -- Layout
+vim.o.tabstop = 4
+vim.o.softtabstop = 4
+vim.o.expandtab = true
 vim.opt.breakindent = true
 vim.opt.scrolloff = 10
 vim.o.wrap = false
